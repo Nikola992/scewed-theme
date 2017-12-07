@@ -15,6 +15,10 @@ $(document).ready(function () {
         }, 2000);
 
     });
+    
+    if($('.bx-slider').length > 0){
+        $('.lead-slider').bxSlider();
+    }
 
 
 
