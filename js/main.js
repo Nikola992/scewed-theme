@@ -62,6 +62,8 @@ $(document).ready(function () {
                 }
             }
         })
+        
+        arrows: false;
 
         $('.portfolio-slider').owlCarousel({
             loop: true,
@@ -93,27 +95,61 @@ $(document).ready(function () {
     }
 
 
-    $(window).scroll(function () {
-        var wh = $(window).height();
-        var scroll = $(window).scrollTop();
-        var postion = $('.achievements').offset().top;
+//    $(window).scroll(function () {
+//        var wh = $(window).height();
+//        var scroll = $(window).scrollTop();
+//        var postion = $('.achievements').offset().top;
+//        $('.counter-number').each(function () {
+//            
+//            if(postion < wh + scroll - 100){
+//                 $(this).prop('Counter', 0).animate({
+//                Counter: $(this).text()
+//            }, {
+//                duration: 4000,
+//                easing: 'swing',
+//                step: function (now) {
+//                    $(this).text(Math.ceil(now));
+//                }
+//            });
+//            }
+//            
+//        });
+//    });
+//
+//
+//
+});
+
+
+
+var a = 0;
+$(window).scroll(function () {
+
+    var oTop = $('#achievements').offset().top - window.innerHeight;
+    if (a == 0 && $(window).scrollTop() > oTop) {
         $('.counter-number').each(function () {
-            
-            if(postion < wh + scroll - 100){
-                 $(this).prop('Counter', 0).animate({
-                Counter: $(this).text()
-            }, {
-                duration: 4000,
-                easing: 'swing',
-                step: function (now) {
-                    $(this).text(Math.ceil(now));
-                }
-            });
-            }
-            
+            var $this = $(this),
+                    countTo = $this.attr('data-count');
+            $({
+                countNum: $this.text()
+            }).animate({
+                countNum: countTo
+            },
+                    {
+
+                        duration: 2000,
+                        easing: 'swing',
+                        step: function () {
+                            $this.text(Math.floor(this.countNum));
+                        },
+                        complete: function () {
+                            $this.text(this.countNum);
+                            //alert('finished');
+                        }
+
+                    });
         });
-    });
-
-
+        a = 1;
+    }
 
 });
